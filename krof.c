@@ -39,26 +39,26 @@ int main()
 			double ca = cos(a);
 			double sa = sin(a);
 
+			// okoli y osi
+			double tmp = TORUS_INNER_RADIUS * ca;
+
+			double ax = tmp * cf; 
+			double ay = TORUS_INNER_RADIUS * sa;
+			double az = tmp * sf;
+
+			/*
+			// okoli x osi
+			double tmp = TORUS_INNER_RADIUS * sa;
+
+			double ax = TORUS_INNER_RADIUS * ca;
+			double ay = tmp * cf;
+			double az = -tmp * sf;
+			*/
+
 			for (double g = 0; g < 2 * M_PI; g += M_PI / 64) {
- 				// okoli y osi
-				double tmp = TORUS_INNER_RADIUS * ca;
-
-				double x = tmp * cf; 
-				double y = TORUS_INNER_RADIUS * sa;
-				double z = tmp * sf;
-
-				/*
-				// okoli x osi
-				double tmp = TORUS_INNER_RADIUS * sa;
-
-				double x = TORUS_INNER_RADIUS * ca;
-				double y = tmp * cf;
-				double z = -tmp * sf;
-				*/
-
-				x += TORUS_OUTER_RADIUS * cos(g);
-				y += TORUS_OUTER_RADIUS * sin(g);
-				z += TORUS_DISTANCE;
+				double x = ax + TORUS_OUTER_RADIUS * cos(g);
+				double y = ay + TORUS_OUTER_RADIUS * sin(g);
+				double z = az + TORUS_DISTANCE;
 
 				double dx = (x * SCREEN_DISTANCE) / z;
 				double dy = (y * SCREEN_DISTANCE) / z;
@@ -66,7 +66,7 @@ int main()
 				dy = (dy + 0.5) * HEIGHT;
 
 				//printf("(%f, %f, %f), (%f, %f)\n", x, y, z, dx, dy);
-			
+
 				int idx = (int)(dx + 0.5);
 				int idy = (int)(dy + 0.5);
 
